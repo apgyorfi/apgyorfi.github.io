@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vonatszám keresés</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Vonatszám keresés</h1>
+        <form id="searchForm">
+            <!-- Vonatszám mező -->
+            <div class="mb-3">
+                <label for="trainNumber" class="form-label">Vonatszám</label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    id="trainNumber" 
+                    placeholder="Adja meg a vonatszámot" 
+                    required
+                >
+            </div>
+            <!-- Dátum mező -->
+            <div class="mb-3">
+                <label for="date" class="form-label">Dátum</label>
+                <input 
+                    type="date" 
+                    class="form-control" 
+                    id="date" 
+                    value="">
+            </div>
+            <!-- Keresés gomb -->
+            <button type="submit" class="btn btn-primary w-100">Keresés</button>
+        </form>
+    </div>
+
+    <script>
+        // Alapértelmezett dátum beállítása a mai napra
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+        });
+
+        // Űrlap küldése és átirányítás
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const trainNumber = document.getElementById('trainNumber').value;
+            const date = document.getElementById('date').value;
+            const formattedDate = `${date}T23:00:00.000Z`;
+
+            // Átirányítás az adott URL-re
+            const url = `https://jegy.mav.hu/menetrend/vonat?d=${formattedDate}&vsz=${trainNumber}`;
+            window.location.href = url;
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
