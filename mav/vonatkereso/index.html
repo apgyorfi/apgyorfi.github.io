@@ -47,8 +47,9 @@
             e.preventDefault();
             
             const trainNumber = document.getElementById('trainNumber').value;
-            const date = document.getElementById('date').value;
-            const formattedDate = `${date}T23:00:00.000Z`;
+            const date = new Date(document.getElementById('date').value);
+            date.setDate(date.getDate() - 1); // Egy nappal korábbi dátum
+            const formattedDate = `${date.toISOString().split('T')[0]}T23:00:00.000Z`;
 
             // Átirányítás az adott URL-re
             const url = `https://jegy.mav.hu/menetrend/vonat?d=${formattedDate}&vsz=${trainNumber}`;
